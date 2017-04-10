@@ -1,0 +1,49 @@
+<?xml version="1.0"?> 
+<config>
+	<tabs>
+        <pdp translate="label" module="integration">
+            <label>Magebay.com</label>
+            <sort_order>300</sort_order>
+        </pdp>
+    </tabs>
+	<sections>
+		<integration translate="label" module="integration">
+			<label>Integration Setting</label>
+			<tab>pdp</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>778</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<setting translate="label">
+                    <label>Setting</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enable translate='label'>
+                    		<label>Enable Moduel Connect </label>
+                    		<frontend_type>select</frontend_type>
+                    		<sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                    	</enable>
+						<pdp_link translate='label'>
+                    		<label>PDP Link</label>
+                    		<frontend_type>text</frontend_type>
+                    		<sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+                    	</pdp_link>
+                    </fields>
+                </setting>
+              </groups>
+            </integration>
+    </sections>
+</config>

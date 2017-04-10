@@ -7,40 +7,27 @@
     </modules>
     <frontend>
         <routers>
-            <dream>
+            <integration>
                 <use>standard</use>
                 <args>
                     <module>PDP_Integration</module>
-                    <frontName>dream</frontName>
+                    <frontName>integration</frontName>
                 </args>
-            </dream>
+            </integration>
         </routers>
     </frontend>
     <admin>
         <routers>
-            <dream>
+            <integration>
                 <use>admin</use>
                 <args>
                     <module>PDP_Integration</module>
-                    <frontName>dream</frontName>
+                    <frontName>integration</frontName>
                 </args>
-            </dream>
+            </integration>
         </routers>
     </admin>
-   <!--  <adminhtml>
-        <menu>
-          <dream module="dream">
-				<title>Dream</title>
-				<sort_order>71</sort_order>               
-				<children>
-					<manage_category module="dream">
-						<title>Items</title>
-						<sort_order>0</sort_order>
-						<action>dream/adminhtml_categories</action>
-					</manage_category>
-				</children>
-			</dream>
-        </menu>
+   <adminhtml>
         <acl>
         <resources>
             <all>
@@ -52,9 +39,9 @@
                         <children>
                             <config>
                                 <children>
-                                    <dream>
-                                        <title>dream - All</title>
-                                    </dream>
+                                    <integration>
+                                        <title>integration - All</title>
+                                    </integration>
                                 </children>
                             </config>
                         </children>
@@ -66,48 +53,59 @@
     </adminhtml> -->
     <global>
         <blocks>
-            <dream>
+            <integration>
                 <class>PDP_Integration_Block</class>
-            </dream>            
+            </integration>            
         </blocks>
         <helpers>
-            <dream>
+            <integration>
                 <class>PDP_Integration_Helper</class>
-            </dream>
+            </integration>
         </helpers>
         <models>
-            <dream>
+            <integration>
                 <class>PDP_Integration_Model</class>
-            </dream>
+            </integration>
         </models>
         <resources>
-            <dream_setup>
+            <integration_setup>
                 <setup>
                     <module>PDP_Integration</module>
                 </setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-            </dream_setup>
-            <dream_write>
+            </integration_setup>
+            <integration_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
-            </dream_write>
-            <dream_read>
+            </integration_write>
+            <integration_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
-            </dream_read>
+            </integration_read>
         </resources>
-    </global>  
-	<crontab>
-        <jobs>
-            <PDP_Integration>
-                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
-                <run><model>dream/images::maintain</model></run>
-            </PDP_Integration>
-        </jobs>
-    </crontab>
-	
+		<events>
+		<!-- <catalog_product_load_after>
+			<observers>
+				<extra_options>
+					<type>model</type>
+					<class>PDP_Integration_Model_Observer</class>
+					<method>catalogProductLoadAfter</method>
+				</extra_options>
+			</observers>
+		</catalog_product_load_after> -->
+		<checkout_cart_product_add_after>
+				<observers>
+					<booking_standard_add_to_cart>
+					  <type>singleton</type>
+					  <class>PDP_Integration_Model_Observer</class>
+					  <method>changePrice</method>
+					</booking_standard_add_to_cart>
+				</observers>
+		</checkout_cart_product_add_after>
+		</events>
+    </global>  	
 </config>
