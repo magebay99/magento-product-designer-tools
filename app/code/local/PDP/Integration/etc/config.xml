@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <PDP_Integration>
+            <version>1.0.1</version>
+        </PDP_Integration>
+    </modules>
+    <frontend>
+        <routers>
+            <dream>
+                <use>standard</use>
+                <args>
+                    <module>PDP_Integration</module>
+                    <frontName>dream</frontName>
+                </args>
+            </dream>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+            <dream>
+                <use>admin</use>
+                <args>
+                    <module>PDP_Integration</module>
+                    <frontName>dream</frontName>
+                </args>
+            </dream>
+        </routers>
+    </admin>
+   <!--  <adminhtml>
+        <menu>
+          <dream module="dream">
+				<title>Dream</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<manage_category module="dream">
+						<title>Items</title>
+						<sort_order>0</sort_order>
+						<action>dream/adminhtml_categories</action>
+					</manage_category>
+				</children>
+			</dream>
+        </menu>
+        <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <dream>
+                                        <title>dream - All</title>
+                                    </dream>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    </adminhtml> -->
+    <global>
+        <blocks>
+            <dream>
+                <class>PDP_Integration_Block</class>
+            </dream>            
+        </blocks>
+        <helpers>
+            <dream>
+                <class>PDP_Integration_Helper</class>
+            </dream>
+        </helpers>
+        <models>
+            <dream>
+                <class>PDP_Integration_Model</class>
+            </dream>
+        </models>
+        <resources>
+            <dream_setup>
+                <setup>
+                    <module>PDP_Integration</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </dream_setup>
+            <dream_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </dream_write>
+            <dream_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </dream_read>
+        </resources>
+    </global>  
+	<crontab>
+        <jobs>
+            <PDP_Integration>
+                <schedule><cron_expr>*/5 * * * *</cron_expr></schedule>
+                <run><model>dream/images::maintain</model></run>
+            </PDP_Integration>
+        </jobs>
+    </crontab>
+	
+</config>
