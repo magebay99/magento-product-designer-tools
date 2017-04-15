@@ -1,0 +1,46 @@
+<?php
+$pdpConfig = Mage::getStoreConfig('integration');
+if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 1)
+{
+	
+}
+else
+{
+	return false;
+}
+$itemOption = $this->getData('item');
+$buyRequest = $itemOption->getBuyRequest()->getData();
+$pdpData = isset($buyRequest['pdp_option']) ? $buyRequest['pdp_option'] : array();
+$designId = isset($pdpData['design_id']) ? $pdpData['design_id'] : 0;
+$pdpProductId = isset($pdpData['pdp_product_id']) ? $pdpData['pdp_product_id'] : 0;
+$pdpUrl = $pdpConfig['setting']['pdp_link'];
+?>
+<?php if($designId > 0) : ?>
+	<div class="pdp-design-infor">
+		<span class="pdp-design-infor-item"><?php echo $this->__('Print Type') ?> : <?php echo isset($pdpData['print_type']['title']) ? $pdpData['print_type']['title'] : ''; ?></span>
+		<span class="pdp-design-infor-item"><?php echo $this->__('Color') ?> : <?php echo isset($pdpData['product_color']['color_name']) ? $pdpData['product_color']['color_name'] : ''; ?></span>
+		<span class="pdp-design-infor-item"><?php echo $this->__('Customize') ?></span>
+		<?php $dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId); ?>
+		<?php $strImages = $dataDesign['side_thumb']; ?>
+		<?php if($strImages != '') : ?>
+			<?php $images = unserialize($strImages); ?>
+			<?php if(count($images)) : ?>
+				<?php foreach($images as $image) : ?>
+					<?php if($image['thumb'] == '') { continue; } ?>
+					<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
+				<?php endforeach; ?>
+			<?php endif; ?>
+		<?php endif; ?>
+	</div>
+	<span class="pdp-design-infor-item"><a href="<?php echo $pdpUrl.'?pid='.$pdpProductId .'&tid='.$designId.'&itemid='.$itemOption->getId(); ?>"><?php echo $this->__('Edit Design') ?></a></span>
+<?php endif; ?>
+<style type="text/css">
+	.pdp-design-infor {
+		float: left;
+		width : 100%;
+	}
+	.pdp-design-infor span {
+		float: left;
+		width : 100%;
+	}
+</style>
