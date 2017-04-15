@@ -15,6 +15,13 @@
                 </args>
             </integration>
         </routers>
+		 <layout>
+            <updates>
+                <integration>
+                    <file>integration.xml</file>
+                </integration>
+            </updates>
+        </layout>
     </frontend>
     <admin>
         <routers>
@@ -50,7 +57,14 @@
             </admin>
         </resources>
     </acl>
-    </adminhtml> -->
+	 <layout>
+            <updates>
+                <integration>
+                    <file>integration.xml</file>
+                </integration>
+            </updates>
+        </layout>
+    </adminhtml>
     <global>
         <blocks>
             <integration>
@@ -88,7 +102,7 @@
             </integration_read>
         </resources>
 		<events>
-		<!-- <catalog_product_load_after>
+		<catalog_product_load_after>
 			<observers>
 				<extra_options>
 					<type>model</type>
@@ -96,7 +110,7 @@
 					<method>catalogProductLoadAfter</method>
 				</extra_options>
 			</observers>
-		</catalog_product_load_after> -->
+		</catalog_product_load_after>
 		<checkout_cart_product_add_after>
 				<observers>
 					<booking_standard_add_to_cart>
