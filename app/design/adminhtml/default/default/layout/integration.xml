@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<adminhtml_sales_order_view>
+        <reference name="order_items">
+           <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
+        </reference>
+	</adminhtml_sales_order_view>
+</layout>
