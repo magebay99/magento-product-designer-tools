@@ -1,0 +1,53 @@
+
+.customer-design {
+    float: left;
+    width: 100%;
+}
+.customer-design-header, customer-design-content {
+    float: left;
+    width: 100%;
+}
+.customer-design-header {
+    margin-bottom: 15px;
+}
+
+.customer-design-header-item, .customer-design-content-item {
+    float: left;
+}
+.customer-design-content-item {
+    border-top: 1px solid;
+	width : 100%;
+}
+.customer-design-header-product, .customer-design-content-product {
+	float: left;
+    width: 35%;
+}
+.customer-design-header-image , .customer-design-content-image {
+	float: left;
+    width: 40%;
+}
+.customer-design-header-price,.customer-design-content-price {
+	float: left;
+    width: 10%;
+}
+.customer-design-header-status,.customer-design-content-status {
+	float: left;
+    width: 15%;
+}
+.customer-design-content-image img {
+    width: 100%;
+}
+.customer-design-content-status span {
+    float: left;
+    width: 100%;
+    margin-top: 5px;
+    text-align: center;
+}
+.customer-design-content-status span.edit-design,.customer-design-content-status span.zip-design {
+    background: #00FF5D;
+    text-align: center;
+}
+.customer-design-content-status span.edit-design a ,.customer-design-content-status span.zip-design a {
+    color: white;
+    font-weight: bold;
+}

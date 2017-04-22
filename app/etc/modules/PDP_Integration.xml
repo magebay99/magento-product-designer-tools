@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <PDP_Integration>
+            <active>true</active>
+            <codePool>local</codePool>
+        </PDP_Integration>
+    </modules>
+</config>

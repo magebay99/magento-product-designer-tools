@@ -1,8 +1,66 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
 	<adminhtml_sales_order_view>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference> 
         <reference name="order_items">
            <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
         </reference>
 	</adminhtml_sales_order_view>
+	<adminhtml_sales_order_invoice_new>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference> 
+        <reference name="order_items">
+          <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
+        </reference>
+	</adminhtml_sales_order_invoice_new>
+	<adminhtml_sales_order_invoice_view>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference> 
+        <reference name="invoice_items">
+          <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
+        </reference>
+	</adminhtml_sales_order_invoice_view>
+	<adminhtml_sales_order_shipment_new>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference> 
+        <reference name="order_items">
+          <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
+        </reference>
+	</adminhtml_sales_order_shipment_new>
+	<adminhtml_sales_order_shipment_view>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference> 
+        <reference name="shipment_items">
+          <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
+        </reference>
+	</adminhtml_sales_order_shipment_view>
+	<adminhtml_sales_order_invoice_updateqty>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference> 
+        <reference name="order_items">
+          <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
+        </reference>
+	</adminhtml_sales_order_invoice_updateqty>
+	<adminhtml_sales_order_creditmemo_new>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference> 
+        <reference name="order_items">
+          <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>integration/items/column/name.phtml</template></action>
+        </reference>
+	</adminhtml_sales_order_creditmemo_new>
 </layout>

@@ -1,0 +1,90 @@
+<?php $collection = $this->getCollection(); ?>
+<?php $pdpConfig = Mage::getStoreConfig('integration'); ?>
+<?php 
+if(!isset($pdpConfig['setting']['enable']) || (isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] != 1))
+{
+	echo '<h1> Module Connect is disabled. </h1>';
+	return false;
+}
+$pdpUrl = $pdpConfig['setting']['pdp_link'];
+$completedesignIds = $this->getAllCompleteDesigns();
+?>
+<?php if($collection->getSize()): ?>
+	<div class="customer-design">
+		<div class="customer-design-header">
+			<span class="customer-design-header-item customer-design-header-product"><?php echo $this->__('PRODUCT'); ?></span>
+			<span class="customer-design-header-item customer-design-header-image"><?php echo $this->__('CUSTOMIZED DESIGN'); ?></span>
+			<span class="customer-design-header-item customer-design-header-price"><?php echo $this->__('PRICE'); ?></span>
+			<span class="customer-design-header-item customer-design-header-status"><?php echo $this->__('STATUS'); ?></span>
+		</div>
+		<div class="customer-design-content">
+			<?php foreach($collection as $collect) : ?>
+				<?php $designId = $collect->getDesignId(); ?>
+				<div class="customer-design-content-item">
+					<div class="customer-design-content-product">
+						<?php $_product = $this->getMageProductById($collect->getMageProductId()); ?>
+						<img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->keepFrame(false)->resize(185); ?>" width="185" />
+						<p class="product-name"><?php echo $_product->getName(); ?></p>
+						<p class="product-sku"><?php echo $collect->getMageProductSku(); ?></p>
+					</div>
+					<div class="customer-design-content-image">
+						<img alt="<?php echo $_product->getName(); ?>" src="<?php echo $pdpUrl.$collect->getThumbmail(); ?>" />
+					</div>
+					<div class="customer-design-content-price">
+						<?php if(array_key_exists($designId,$completedesignIds)) : ?>
+							<p><?php echo Mage::helper('core')->currency($completedesignIds[$designId],true,false); ?></p>
+						<?php else : ?>
+							<p><?php echo Mage::helper('core')->currency($collect->getPrice(),true,false); ?></p>
+						<?php endif; ?>
+					</div>
+					<div class="customer-design-content-status">
+						<?php $statusText = array('pedding'=> $this->__('Pendding'),'success'=>$this->__('Success')); ?>
+						<?php $status = 'pedding'; 
+							if(array_key_exists($designId,$completedesignIds))
+							{
+								$status = 'success';
+							}
+						?>
+						<span class="design-status"><?php echo $statusText[$status]; ?></span>
+						<span class="edit-design"><a href="<?php echo $pdpUrl.'?pid='.$collect->getPdpProductId() .'&tid='.$designId; ?>"><?php echo $this->__('Edit Design') ?></a></span>
+						<?php if($status == 'success') : ?>
+							<span class="zip-design"><span class="pdp-design-infor-item"><a class="pdp-design-infor-item-zip" id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Zip Design') ?></a></span>
+						<?php endif; ?>
+					</div>
+				</div>
+			
+			<?php endforeach ?>
+		</div>
+	</div>
+	<?php echo $this->getPagerHtml(); ?>
+			<script type="text/javascript">
+			jQuery(document).ready(function($){
+				if($('.pdp-design-infor-item-zip').length)
+				{
+					$('.pdp-design-infor-item-zip').click(function(e){
+						var elementId = $(this).attr('id');
+						designId = elementId.replace('pdp-design-infor-item-zip-','');
+						var zipUrl = '<?php echo $pdpUrl.'rest/design-download?id='.$designId.'&zip=1' ?>'
+						 $.get(zipUrl, function(data, status){
+							if(status == 'success')
+							{
+									var jsonData = JSON.parse(data);
+								var dataRes = jsonData.data;
+								var fileZip = dataRes.file;
+								var baseUrl = dataRes.baseUrl;
+								window.location.href = baseUrl+ fileZip;
+							}
+							else
+							{
+								alert('Error ');
+							}
+						});
+						e.preventDefault();
+					})
+				}
+				
+			})
+		</script>
+<?php else : ?>
+<h1><?php echo $this->__('Item not found'); ?></h1>
+<?php endif; ?>

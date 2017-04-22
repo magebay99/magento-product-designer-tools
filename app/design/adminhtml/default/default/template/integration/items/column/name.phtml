@@ -70,9 +70,6 @@
 		?>
 		<?php if($designId > 0) : ?>
 			<div class="pdp-design-infor">
-				<span class="pdp-design-infor-item"><?php echo $this->__('Print Type') ?> : <?php echo isset($pdpData['print_type']['title']) ? $pdpData['print_type']['title'] : ''; ?></span>
-				<span class="pdp-design-infor-item"><?php echo $this->__('Color') ?> : <?php echo isset($pdpData['product_color']['color_name']) ? $pdpData['product_color']['color_name'] : ''; ?></span>
-				<span class="pdp-design-infor-item"><?php echo $this->__('Customize') ?></span>
 				<?php $dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId); ?>
 				<?php $strImages = $dataDesign['side_thumb']; ?>
 				<?php if($strImages != '') : ?>
@@ -85,7 +82,30 @@
 					<?php endif; ?>
 				<?php endif; ?>
 			</div>
+			<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Zip Design') ?></a></span>
 			<span class="pdp-design-infor-item"><a href="<?php echo $pdpUrl.'?export-design='.$designId.'&pid='.$pdpProductId; ?>"><?php echo $this->__('Edit Design') ?></a></span>
+		<script type="text/javascript">
+			jQuery(document).ready(function($){
+				var designId = '<?php echo $designId; ?>';
+				$('#pdp-design-infor-item-zip-'+designId).click(function(e){
+					var zipUrl = '<?php echo $pdpUrl.'rest/design-download?id='.$designId.'&zip=1' ?>'
+					 $.get(zipUrl, function(data, status){
+						if(status == 'success')
+						{
+								var jsonData = JSON.parse(data);
+							var dataRes = jsonData.data;
+							var fileZip = dataRes.file;
+							var baseUrl = dataRes.baseUrl;
+							window.location.href = baseUrl+ fileZip;
+						}
+						else
+						{
+							alert('Error ');
+						}
+					});
+				})
+			})
+		</script>
 		<?php endif; ?>
 		<style type="text/css">
 			.pdp-design-infor {

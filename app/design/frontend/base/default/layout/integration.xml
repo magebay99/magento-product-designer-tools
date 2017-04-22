@@ -5,4 +5,25 @@
             <block type="integration/additional_product_info" name="pdp_additional_product_info"/>
         </reference>
 	</checkout_cart_index>
+	<customer_account>        
+        <reference name="customer_account_navigation">           
+			<action method="addLink" translate="label" module="integration">
+				<name>customer design</name>
+				<path>integration/customerdesign/index</path>
+				<label>My Designs</label>
+			</action>
+		</reference>
+    </customer_account>
+	 <integration_customerdesign_index>
+		<reference name="head">
+            <action method="setTitle"><title>My Designs</title></action>
+			<action method="addCss"><stylesheet>integration/css/customerdesign.css</stylesheet></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/jquery-1.10.2.min.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>integration/js/noconflict.js</name></action>
+        </reference>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="integration/customerdesign" name="customer_designer" template="integration/customer/design_list.phtml" />
+		</reference>
+	</integration_customerdesign_index>
 </layout>
