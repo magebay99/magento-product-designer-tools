@@ -88,6 +88,8 @@ shell/compiler.php
 shell/indexer.php
 shell/log.php
 sitemap.xml
+package.xml
+php_errorlog
 skin/adminhtml/default/default/
 skin/adminhtml/default/enterprise
 skin/frontend/base/
