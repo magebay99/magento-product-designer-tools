@@ -1,0 +1,18 @@
+.pdp-design-btn
+{
+	background: #2e8ab8 none repeat scroll 0 0;
+    float: left;
+    height: 40px;
+    text-align: center;
+    width: 100%;
+}
+.pdp-design-btn a
+{
+	color: white;
+    display: block;
+    font-size: 1.3em;
+    padding: 5px;
+}
+.pdp-design-btn a:hover {
+    color: white;
+}

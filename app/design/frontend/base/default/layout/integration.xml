@@ -26,4 +26,17 @@
 			<block type="integration/customerdesign" name="customer_designer" template="integration/customer/design_list.phtml" />
 		</reference>
 	</integration_customerdesign_index>
+	<catalog_product_view>
+		<reference name="head">
+			<action method="addCss"><stylesheet>integration/css/product.css</stylesheet></action>
+        </reference>
+        <reference name="product.info.addtocart">
+            <block type="integration/pdpproduct" name="pdpdesign_button" as="design_button" template="integration/product/design_button.phtml" />
+        </reference>
+    </catalog_product_view>
+	<catalog_category_default>
+		<reference name="head">
+			<action method="addCss"><stylesheet>integration/css/product.css</stylesheet></action>
+        </reference>
+	</catalog_category_default>
 </layout>

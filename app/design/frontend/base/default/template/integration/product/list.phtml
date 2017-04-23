@@ -1,0 +1,20 @@
+<?php 
+$pdpConfig = Mage::getStoreConfig('integration');
+$pdpUrl = $pdpConfig['setting']['pdp_link'];
+if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 1)
+{
+	
+}
+else
+{
+	return false;
+}
+//get current Product in magento
+$_product = $this->getProductData();
+$pdpProduct = Mage::helper('integration')->getPdpProduct($_product->getSku()); ?>
+<?php if(count($pdpProduct)) : ?>
+<?php $pdpProductId = isset($pdpProduct['type_id']) ? $pdpProduct['type_id'] : 0; ?>
+<div class="pdp-design-btn">
+   <a href="<?php echo $pdpUrl.'?pid='.$pdpProductId; ?>"><?php echo $this->__('Customize It'); ?></a>
+</div>
+<?php endif; ?>

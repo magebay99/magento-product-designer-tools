@@ -115,5 +115,33 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 		return $title;
 	}
+	/**
+	* get pdp product
+	* @param string $sku
+	* @return array
+	**/
+	function getPdpProduct($sku)
+	{
+		$read = Mage::getSingleton('core/resource')->getConnection('core_read'); 
+		$items = $read->fetchAll("SELECT type_id,sku FROM pdp_product_type WHERE sku = '{$sku}'");
+		$pdpProduct = array();
+		if(count($items))
+		{
+			foreach($items as $item)
+			{
+				$pdpProduct = $item;
+			}
+		}
+		return $pdpProduct;
+	}
+	function checkPdpProduct($sku)
+	{
+		$pdpProduct = $this->getPdpProduct($sku);
+		if(count($pdpProduct))
+		{
+			return true;
+		}
+		return false;
+	}
 }
 ?>
