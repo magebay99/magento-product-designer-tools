@@ -24,9 +24,13 @@ Helpful links:
 2. Download and upload into your Magento 1.9.x root directory
 3. Refresh cache and logout to ignore authentication 404 issues
 4. Config module in Magento Backend
-
+Disable Cache
 ![Alt text](https://productsdesignerpro.com/images/disable-cache-m1.png "Disable Cache") 
+Configuration the connector module
+
 ![Alt text](https://productsdesignerpro.com/images/pdp-config-magento1.png "Configuration the connector module")
+Enter installed path of PDP. For example domain.com/designer then just enter 'designer'
+
 ![Alt text](https://productsdesignerpro.com/images/pdp-config-magento1-path.png "Enter installed path of PDP. For example domain.com/designer then just enter 'designer'")
 
 # One click to push products from PDP to Magento1.9.x
