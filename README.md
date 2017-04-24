@@ -20,13 +20,14 @@ Helpful links:
 [Lastest Version](https://github.com/magebay99/magento-product-designer-tools/archive/master.zip)
 # Installation Guide 
 
-1. Disable Magento 1.9.x from backend.
+1. Disable Cache of Magento 1.9.x from System Cache management.
 2. Download and upload into your Magento 1.9.x root directory
 3. Refresh cache and logout to ignore authentication 404 issues
 4. Config module in Magento Backend
 
-![Alt text](http://image.prntscr.com/image/4b2545e197ee44ea99ddcda62fc480fa.png "Enable Module") 
-![Alt text](http://image.prntscr.com/image/0544b49a946a484596d908a5a1bead12.png "Config Module") 
+![Alt text](https://productsdesignerpro.com/images/disable-cache-m1.png "Disable Cache") 
+![Alt text](https://productsdesignerpro.com/images/pdp-config-magento1.png "Configuration the connector module")
+![Alt text](https://productsdesignerpro.com/images/pdp-config-magento1-path.png "Enter installed path of PDP. For example domain.com/designer then just enter 'designer'")
 
 # One click to push products from PDP to Magento1.9.x
 
@@ -36,7 +37,8 @@ Helpful links:
 ![Alt text](http://image.prntscr.com/image/d590b720a652453da0851ae3d8770309.png "Enable Shopping Cart") 
 
 - Enter API access information to connect with Magento 1.9.x(it can be Magento admin access)
-![Alt text](http://image.prntscr.com/image/64b97bb64d7c44a7be25b7adbcf33284.png "Integrate with Magento 1.9.x") 
+![Alt text](https://productsdesignerpro.com/images/config-magento1-with-pdp.png "Disable Cache") 
+Check this post for tutor how to get Consumer key and secret https://goo.gl/z9ZjtA 
 
 2. Push products into Magento 1.9.x for ready to sell.
 - Push single product to Magento 1.9.x
