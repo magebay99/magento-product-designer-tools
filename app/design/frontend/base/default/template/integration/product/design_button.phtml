@@ -1,6 +1,6 @@
 <?php 
 $pdpConfig = Mage::getStoreConfig('integration');
-$pdpUrl = $pdpConfig['setting']['pdp_link'];
+$pdpUrl = Mage::helper('integration')->getPdpLink();
 if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 1)
 {
 	

@@ -13,7 +13,7 @@ $buyRequest = $itemOption->getBuyRequest()->getData();
 $pdpData = isset($buyRequest['pdp_option']) ? $buyRequest['pdp_option'] : array();
 $designId = isset($pdpData['design_id']) ? $pdpData['design_id'] : 0;
 $pdpProductId = isset($pdpData['pdp_product_id']) ? $pdpData['pdp_product_id'] : 0;
-$pdpUrl = $pdpConfig['setting']['pdp_link'];
+$pdpUrl = Mage::helper('integration')->getPdpLink();
 ?>
 <?php if($designId > 0) : ?>
 	<div class="pdp-design-infor">

@@ -6,7 +6,7 @@ if(!isset($pdpConfig['setting']['enable']) || (isset($pdpConfig['setting']['enab
 	echo '<h1> Module Connect is disabled. </h1>';
 	return false;
 }
-$pdpUrl = $pdpConfig['setting']['pdp_link'];
+$pdpUrl = Mage::helper('integration')->getPdpLink();
 $completedesignIds = $this->getAllCompleteDesigns();
 ?>
 <?php if($collection->getSize()): ?>
