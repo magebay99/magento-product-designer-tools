@@ -57,7 +57,38 @@ Check this post for tutor how to get Consumer key and secret https://goo.gl/z9Zj
 After products are pushed succesful, all these items status will be change to LIVE in #PDP, and ready for sell on Magento 1.9.x.
 
 We have not tested on Magento 1.8.x or less than version number.
+3 . Display Button Customize it in category page. 
+![2017-04-24_1417 1](https://cloud.githubusercontent.com/assets/11420761/25326607/286007e0-28fb-11e7-8b92-387d0bb06261.png)
+
+Open file app/design/frontend/YOUR_PACKAGE/YOUR_THEME/template/catalog/product/list.phtml
+
+find code 
+
+`<button type="button" title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>`
+
+Change it to 
+
+`<button <?php if($ispdp) { echo 'style="display: none"'; } ?> type="button" title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>`
+
+Add the code to above it
 
 
+` <?php $ispdp = false; ?>
+							<?php
+								if(Mage::helper('core')->isModuleEnabled('PDP_Integration'))
+								{
+									if(Mage::helper('integration')->checkPdpProduct($_product->getSku()))
+									{
+										$ispdp = true;
+									}
+								}
+							?>`
+           
+ 
+Add the code to below it 
+
+`<?php echo Mage::app()->getLayout()->createBlock('integration/pdpproduct')->setData(array('product_data'=>$_product))->setTemplate('integration/product/list.phtml')->toHtml(); ?>
+`
+![2017-04-24_1454 1](https://cloud.githubusercontent.com/assets/11420761/25327378/1d2024c0-28fe-11e7-889e-ad53d7e411ff.png)
 
 
