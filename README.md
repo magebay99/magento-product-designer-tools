@@ -8,6 +8,15 @@ Helpful links:
 - Pricing https://goo.gl/vq7LIr
 - Help Center https://goo.gl/fWjkKz
 
+# Module Connector for other e-commerce platform
+
+- Magento 2.X Connector https://goo.gl/zxpHbJ
+- Magento 1.X Connector https://goo.gl/lg3v4g
+- Woocommerce Connector https://goo.gl/3bQ1Br
+- Shopify Connector https://goo.gl/1OmgM3
+- Prestashop Connector https://goo.gl/SHG4RR
+- Opencart Connector https://goo.gl/GEJ3Nk
+- Nopcommerce Connector https://goo.gl/GEJ3Nk
 
 # Free download The Magento 1.9.x Connector plugin for the Product Designer Tools 
 - The Magento 1.9.x Connector plugin will connect Magento 1.9.x with Product Designer Pro system https://goo.gl/AFlnBQ
