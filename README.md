@@ -8,16 +8,6 @@ Helpful links:
 - Pricing https://goo.gl/vq7LIr
 - Help Center https://goo.gl/fWjkKz
 
-# Module Connector for other e-commerce platform
-
-- Magento 2.X Connector https://goo.gl/zxpHbJ
-- Magento 1.X Connector https://goo.gl/lg3v4g
-- Woocommerce Connector https://goo.gl/3bQ1Br
-- Shopify Connector https://goo.gl/1OmgM3
-- Prestashop Connector https://goo.gl/SHG4RR
-- Opencart Connector https://goo.gl/GEJ3Nk
-- Nopcommerce Connector https://goo.gl/GEJ3Nk
-
 # Free download The Magento 1.9.x Connector plugin for the Product Designer Tools 
 - The Magento 1.9.x Connector plugin will connect Magento 1.9.x with Product Designer Pro system https://goo.gl/AFlnBQ
 - Manage order and export all customized designs from Magento Backend (Export and Edit customized design from customer's order details)
@@ -100,4 +90,12 @@ Add the code to below it
 `
 ![2017-04-24_1454 1](https://cloud.githubusercontent.com/assets/11420761/25327378/1d2024c0-28fe-11e7-889e-ad53d7e411ff.png)
 
+# Module Connector for other e-commerce platform
 
+- Magento 2.X Connector https://goo.gl/zxpHbJ
+- Magento 1.X Connector https://goo.gl/lg3v4g
+- Woocommerce Connector https://goo.gl/3bQ1Br
+- Shopify Connector https://goo.gl/1OmgM3
+- Prestashop Connector https://goo.gl/SHG4RR
+- Opencart Connector https://goo.gl/GEJ3Nk
+- Nopcommerce Connector https://goo.gl/GEJ3Nk
