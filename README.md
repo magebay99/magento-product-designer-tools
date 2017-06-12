@@ -90,6 +90,18 @@ Add the code to below it
 `
 ![2017-04-24_1454 1](https://cloud.githubusercontent.com/assets/11420761/25327378/1d2024c0-28fe-11e7-889e-ad53d7e411ff.png)
 
+See Design In Admin Order
+
+Go To Sales => Order 
+![hm08q1v](https://user-images.githubusercontent.com/11420761/27017442-99c02492-4f52-11e7-90f6-6e8e7c287a85.png)
+
+See Design in Customer Email . If Store Send an email to user's email ater completing order. He can see Link design in his email. He can click to link view detail design. 
+![zzlizg2](https://user-images.githubusercontent.com/11420761/27017491-09f2d4bc-4f53-11e7-977a-12aff1d22503.png)
+
+See Design in Customer Account Page. If user acction to his account page. He can see the design in his order.
+![wghikiu](https://user-images.githubusercontent.com/11420761/27017540-69b57936-4f53-11e7-8025-7869e8ce7f91.png)
+
+
 # Module Connector for other e-commerce platform
 
 - Magento 2.X Connector https://goo.gl/zxpHbJ
