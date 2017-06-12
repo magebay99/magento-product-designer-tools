@@ -90,16 +90,17 @@ Add the code to below it
 `
 ![2017-04-24_1454 1](https://cloud.githubusercontent.com/assets/11420761/25327378/1d2024c0-28fe-11e7-889e-ad53d7e411ff.png)
 
-See Design in Admin Order
+See Customized Design in Admin Order
 
 Go To Sales => Order 
-![hm08q1v](https://user-images.githubusercontent.com/11420761/27017442-99c02492-4f52-11e7-90f6-6e8e7c287a85.png)
+![ymlhsnx](https://user-images.githubusercontent.com/11420761/27023912-c726a218-4f7e-11e7-8485-15dc08912163.png)
 
-See Design in Customer Email . If Store Send an email to user's email ater completing order. He can see Link design in his email. He can click to link view detail design. 
-![zzlizg2](https://user-images.githubusercontent.com/11420761/27017491-09f2d4bc-4f53-11e7-977a-12aff1d22503.png)
+See Customized Design in Customer Email . If Store Send an email to user's email ater completing order. He can see Link design in his email. He can click to link view detail design. 
+![firefox_2017-06-12_14-49-26](https://user-images.githubusercontent.com/11420761/27023834-73ec6330-4f7e-11e7-9250-6d14afc55f62.png)
 
-See Design in Customer Account Page. If user access to his account page. He can see the design in his order.
-![wghikiu](https://user-images.githubusercontent.com/11420761/27017540-69b57936-4f53-11e7-8025-7869e8ce7f91.png)
+See Customized Design in Customer Account Page. If user access to his account page. He can see the design in his order.
+![6ghcn1o](https://user-images.githubusercontent.com/11420761/27023881-a02827c2-4f7e-11e7-93e7-7a07af91f962.png)
+
 
 
 # Module Connector for other e-commerce platform
