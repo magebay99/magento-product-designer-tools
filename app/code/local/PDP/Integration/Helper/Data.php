@@ -231,5 +231,16 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
 		}
 		return $url;
 	}
+	/**
+	* get side data
+	* @param int $sideId
+	* @return $item
+	**/
+	function getPdpSideData($sideId)
+	{
+		$read = Mage::getSingleton('core/resource')->getConnection('core_read'); 
+		$items = $read->fetchAll("select side_name from pdp_design_side where side_id = {$sideId}"); 
+		return $items[0] ? $items[0] : array();
+	}
 }
 ?>

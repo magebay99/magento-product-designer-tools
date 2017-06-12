@@ -77,7 +77,16 @@
 					<?php if(count($images)) : ?>
 						<?php foreach($images as $image) : ?>
 							<?php if($image['thumb'] == '') { continue; } ?>
-							<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
+							<?php 
+								$sideId = isset($image['sideId']) ? $image['sideId'] : 0;
+								$sideData = Mage::helper('integration')->getPdpSideData($sideId);
+								$sideTitle = $sideData['side_name'] ? $sideData['side_name'] : '';
+							?>
+							<label style="float: left;"><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label><br/>
+							<div class="pdc-review-image" style="float: left; width: 100%;">
+								<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
+							</div>
+							
 						<?php endforeach; ?>
 					<?php endif; ?>
 				<?php endif; ?>

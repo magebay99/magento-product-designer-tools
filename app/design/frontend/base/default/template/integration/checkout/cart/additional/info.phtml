@@ -23,10 +23,18 @@ $pdpUrl = Mage::helper('integration')->getPdpLink();
 		<?php $dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId); ?>
 		<?php $strImages = $dataDesign['side_thumb']; ?>
 		<?php if($strImages != '') : ?>
-			<?php $images = unserialize($strImages); ?>
+			<?php $images = unserialize($strImages);
+			
+			?>
 			<?php if(count($images)) : ?>
 				<?php foreach($images as $image) : ?>
 					<?php if($image['thumb'] == '') { continue; } ?>
+					<?php 
+						$sideId = isset($image['sideId']) ? $image['sideId'] : 0;
+						$sideData = Mage::helper('integration')->getPdpSideData($sideId);
+						$sideTitle = $sideData['side_name'] ? $sideData['side_name'] : '';
+					?>
+					<label><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label>
 					<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
 				<?php endforeach; ?>
 			<?php endif; ?>
