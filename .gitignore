@@ -108,3 +108,8 @@ var/
 lib/
 designer/
 downloader.php
+app/locale/
+scheduler_cron.sh
+shell/
+app/etc/
+app/code/community/

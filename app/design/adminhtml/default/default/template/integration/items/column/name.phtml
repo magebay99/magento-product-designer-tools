@@ -92,7 +92,7 @@
 					 $.get(zipUrl, function(data, status){
 						if(status == 'success')
 						{
-								var jsonData = JSON.parse(data);
+							var jsonData = data;
 							var dataRes = jsonData.data;
 							var fileZip = dataRes.file;
 							var baseUrl = dataRes.baseUrl;

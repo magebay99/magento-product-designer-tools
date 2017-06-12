@@ -39,4 +39,14 @@
 			<action method="addCss"><stylesheet>integration/css/product.css</stylesheet></action>
         </reference>
 	</catalog_category_default>
+	<sales_email_order_items>
+		<reference name="additional.product.info">
+            <block type="integration/email_additional_product_info" name="integration_additional_product_info"/>
+        </reference>
+	</sales_email_order_items>
+	<sales_order_view>
+		<reference name="additional.product.info">
+            <block type="integration/additional_order_info" name="customer_additional_pdp_order_info"/>
+        </reference>
+	</sales_order_view>
 </layout>
