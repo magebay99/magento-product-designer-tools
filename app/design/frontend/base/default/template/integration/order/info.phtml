@@ -28,12 +28,12 @@ if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 
 						$sideTitle = $sideData['side_name'] ? $sideData['side_name'] : '';
 						?>
 						<label><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label>
-						<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
+						<img src="<?php echo $pdpUrl.$image['thumb'] ?>" style="max-width:350px;" />
 					<?php endforeach; ?>
 				<?php endif; ?>
 			<?php endif; ?>
 		</div>
-		<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Zip Design') ?></a></span>
+		<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Download Design') ?></a></span>
 	<?php endif; ?>
 	<input type="hidden" id="pdp-desgin-id-<?php echo $designId; ?>" value="<?php echo (int)$mDesignId ?>" />
 	<script type="text/javascript">
@@ -71,6 +71,26 @@ if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 
 		}
 	})
 	</script>
+<style rel="stylesheet">
+span.pdp-design-infor-item {
+    display: table-cell;
+    background: #a1d06a;
+    width: 1%;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+span.pdp-design-infor-item a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 10px;
+    line-height: 30px;
+    display: block;
+}
+	span.pdp-design-infor-item:last-child{background:#00baf7;}
+</style>
 <?php endif; ?>
 
 
