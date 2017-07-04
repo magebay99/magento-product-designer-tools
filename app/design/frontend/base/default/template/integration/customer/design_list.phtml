@@ -9,8 +9,10 @@ if(!isset($pdpConfig['setting']['enable']) || (isset($pdpConfig['setting']['enab
 $pdpUrl = Mage::helper('integration')->getPdpLink();
 $completedesignIds = $this->getAllCompleteDesigns();
 ?>
+<?php $reDesignId = 0; ?>
 <?php if($collection->getSize()): ?>
 	<div class="customer-design">
+		<?php if(Mage::getSingleton('core/session')->getPdpRedirect()) { $reDesignId  = Mage::getSingleton('core/session')->getPdpRedirect();  Mage::getSingleton('core/session')->setPdpRedirect(0); } ?>
 		<div class="customer-design-header">
 			<span class="customer-design-header-item customer-design-header-product"><?php echo $this->__('PRODUCT'); ?></span>
 			<span class="customer-design-header-item customer-design-header-image"><?php echo $this->__('CUSTOMIZED DESIGN'); ?></span>
@@ -48,41 +50,94 @@ $completedesignIds = $this->getAllCompleteDesigns();
 						<span class="design-status"><?php echo $statusText[$status]; ?></span>
 						<span class="edit-design"><a href="<?php echo $pdpUrl.'?pid='.$collect->getPdpProductId() .'&tid='.$designId; ?>"><?php echo $this->__('Edit Design') ?></a></span>
 						<?php if($status == 'success') : ?>
+							<?php if($reDesignId == $designId) : ?>
+								<span><?php echo $this->__('Design has created , Please click to Zip Design again'); ?></span>
+							<?php endif; ?>
 							<span class="zip-design"><span class="pdp-design-infor-item"><a class="pdp-design-infor-item-zip" id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Zip Design') ?></a></span>
 						<?php endif; ?>
 					</div>
 				</div>
-			
+				<input type="hidden" id="pdp-design-pdp-id-<?php echo $designId ?>" value="<?php echo $collect->getPdpProductId(); ?>" />
+				<input type="hidden" id="pdp-design-current-url-<?php echo $designId ?>" value="<?php echo Mage::helper('core/url')->getCurrentUrl(); ?>" />
 			<?php endforeach ?>
 		</div>
 	</div>
 	<?php echo $this->getPagerHtml(); ?>
 			<script type="text/javascript">
 			jQuery(document).ready(function($){
+				var checkPdpSessionUrl = '<?php echo $this->getUrl() ?>integration/customerdesign/setDpk';
 				if($('.pdp-design-infor-item-zip').length)
 				{
 					$('.pdp-design-infor-item-zip').click(function(e){
 						var elementId = $(this).attr('id');
 						designId = elementId.replace('pdp-design-infor-item-zip-','');
-						var zipUrl = '<?php echo $pdpUrl.'rest/design-download?id='.$designId.'&zip=1' ?>'
-						 $.get(zipUrl, function(data, status){
-							if(status == 'success')
+						var pdpProductId = $('#pdp-design-pdp-id-'+designId).val();
+						var zipUrl = '<?php echo $pdpUrl.'rest/design-download?'; ?>id='+designId+'&zip=1';
+						var resturnUri = $('#pdp-design-current-url-'+designId).val();;
+						var reload = '<?php echo $pdpUrl; ?>?pid='+pdpProductId+'&export-design='+designId+'&force-update-svg=1';
+						reload += '&return-uri=' + encodeURIComponent(resturnUri);
+						$.ajax({
+							url: zipUrl,
+							type: 'GET',
+							success : function(res)
 							{
-									var jsonData = JSON.parse(data);
+								var jsonData = res;
+								if(typeof jsonData === 'object')
+								{
+									
+								}
+								else
+								{
+									jsonData = JSON.parse(res);
+								}
 								var dataRes = jsonData.data;
 								var fileZip = dataRes.file;
 								var baseUrl = dataRes.baseUrl;
 								window.location.href = baseUrl+ fileZip;
-							}
-							else
+							},
+							error : function(res)
 							{
-								alert('Error ');
+								var mResponseText = res.responseText;
+								if(typeof mResponseText == 'object')
+								{
+									
+								}
+								else
+								{
+									mResponseText = JSON.parse(mResponseText);
+								}
+								if(mResponseText.errorCode && mResponseText.errorCode === 15)
+								{
+									checkPdpSession(checkPdpSessionUrl,designId,function(){
+										if(confirm('<?php echo $this->__('We need create it again from Design Editor, Editor . Press OK then just wait , all done automatically !.'); ?>'))
+										{
+											window.location.href = reload;
+										}
+									})
+								}else{
+								 // alertModal('Error', $t(msg));
+								}
 							}
-						});
+						})
 						e.preventDefault();
 					})
 				}
-				
+				function checkPdpSession(url,designId,callback)
+				{
+					$.ajax({
+							url: url,
+							type: 'post',
+							data : {design_id : designId},
+							success : function(res)
+							{
+								callback();
+							},
+							error : function()
+							{
+								alert('Error');
+							}
+					})
+				}
 			})
 		</script>
 <?php else : ?>

@@ -58,6 +58,7 @@
     <?php endif; ?>
     <?php echo $this->escapeHtml($_item->getDescription()) ?>
 	<?php //PDP order information ?>
+	
 	<?php
 	$pdpConfig = Mage::getStoreConfig('integration');
 	if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 1) : ?>
@@ -84,57 +85,81 @@
 							?>
 							<label style="float: left;"><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label><br/>
 							<div class="pdc-review-image" style="float: left; width: 100%;">
-								<img src="<?php echo $pdpUrl.$image['thumb'] ?>" style="max-width:450px;" />
+								<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
 							</div>
 							
 						<?php endforeach; ?>
 					<?php endif; ?>
 				<?php endif; ?>
 			</div>
-			<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Download Design') ?></a></span>
+			<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Zip Design') ?></a></span>
 			<span class="pdp-design-infor-item"><a href="<?php echo $pdpUrl.'?export-design='.$designId.'&pid='.$pdpProductId; ?>"><?php echo $this->__('Edit Design') ?></a></span>
+			<?php $currentUrl = Mage::helper('core/url')->getCurrentUrl(); ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
 				var designId = '<?php echo $designId; ?>';
+				var currentUrl = '<?php echo $currentUrl; ?>';
+				var pdpProductId = '<?php echo $pdpProductId; ?>';
 				$('#pdp-design-infor-item-zip-'+designId).click(function(e){
 					var zipUrl = '<?php echo $pdpUrl.'rest/design-download?id='.$designId.'&zip=1' ?>'
-					 $.get(zipUrl, function(data, status){
-						if(status == 'success')
+					var resturnUri = currentUrl;
+					var reload = '<?php echo $pdpUrl; ?>?pid='+pdpProductId+'&export-design='+designId+'&force-update-svg=1';
+					reload += '&return-uri=' + encodeURIComponent(resturnUri);
+					$.ajax({
+						url: zipUrl,
+						type: 'GET',
+						success : function(res)
 						{
-							var jsonData = data;
+							var jsonData = res;
+							if(typeof jsonData === 'object')
+							{
+								
+							}
+							else
+							{
+								jsonData = JSON.parse(res);
+							}
 							var dataRes = jsonData.data;
 							var fileZip = dataRes.file;
 							var baseUrl = dataRes.baseUrl;
 							window.location.href = baseUrl+ fileZip;
-						}
-						else
+						},
+						error : function(res)
 						{
-							alert('Error ');
+							var mResponseText = res.responseText;
+							if(typeof mResponseText == 'object')
+							{
+								
+							}
+							else
+							{
+								mResponseText = JSON.parse(mResponseText);
+							}
+							console.log(mResponseText);
+							if(mResponseText.errorCode && mResponseText.errorCode === 15)
+							{
+								if(confirm('<?php echo $this->__('We need create it again from Design Editor, Editor . Press OK then just wait , all done automatically !.'); ?>'))
+								{
+									window.location.href = reload;
+								}
+							}else{
+							 // alertModal('Error', $t(msg));
+							}
 						}
-					});
+					})
 				})
 			})
 		</script>
 		<?php endif; ?>
 		<style type="text/css">
-span.pdp-design-infor-item {
-    display: table-cell;
-    background: #a1d06a;
-    width: 1%;
-    text-align: center;
-    color: #fff;
-    text-decoration: none;
-}
-span.pdp-design-infor-item a {
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 10px;
-    line-height: 30px;
-    display: block;
-}
-	span.pdp-design-infor-item:last-child{background:#00baf7;}
+			.pdp-design-infor {
+				float: left;
+				width : 100%;
+			}
+			.pdp-design-infor span {
+				float: left;
+				width : 100%;
+			}
 		</style>
 	<?php endif; ?>
 

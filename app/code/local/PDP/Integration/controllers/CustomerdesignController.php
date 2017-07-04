@@ -12,4 +12,12 @@ Class PDP_Integration_CustomerdesignController extends Mage_Core_Controller_Fron
 		$this->loadLayout();
 		$this->renderLayout();
 	}
+	function setDpkAction()
+	{
+		
+		$designId = $this->getRequest()->getParam('design_id',0);
+		Mage::getSingleton('core/session')->setPdpRedirect($designId);
+		$response = array('status'=>'success');
+		$this->getResponse()->setBody(json_encode($response));
+	}
 }

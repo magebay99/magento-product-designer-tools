@@ -1,96 +1,209 @@
 <?php
 $itemOption = $this->getData('item');
 $buyRequest = $itemOption->getBuyRequest()->getData();
+$order = $itemOption->getOrder();
+
 ?>
+<?php $reDesignId = 0; ?>
+<?php if(Mage::getSingleton('core/session')->getPdpRedirect()) { $reDesignId  = Mage::getSingleton('core/session')->getPdpRedirect();  Mage::getSingleton('core/session')->setPdpRedirect(0); } ?>
 <?php //PDP order information ?>
-<?php
-$mDesignId = $this->getRequest()->getParam('design_id',0);
-$pdpConfig = Mage::getStoreConfig('integration');
-if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 1) : ?>
-	<?php 
-	$pdpData = isset($buyRequest['pdp_option']) ? $buyRequest['pdp_option'] : array();
-	$designId = isset($pdpData['design_id']) ? $pdpData['design_id'] : 0;
-	$pdpProductId = isset($pdpData['pdp_product_id']) ? $pdpData['pdp_product_id'] : 0;
-	$pdpUrl = Mage::helper('integration')->getPdpLink();
-	?>
-	<?php if($designId > 0) : ?>
-		<div class="pdp-design-infor">
-			<?php $dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId); ?>
-			<?php $strImages = $dataDesign['side_thumb']; ?>
-			<?php if($strImages != '') : ?>
-				<?php $images = unserialize($strImages); ?>
-				<?php if(count($images)) : ?>
-					<?php foreach($images as $image) : ?>
-						<?php if($image['thumb'] == '') { continue; } ?>
-						<?php 
-						$sideId = isset($image['sideId']) ? $image['sideId'] : 0;
-						$sideData = Mage::helper('integration')->getPdpSideData($sideId);
-						$sideTitle = $sideData['side_name'] ? $sideData['side_name'] : '';
-						?>
-						<label><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label>
-						<img src="<?php echo $pdpUrl.$image['thumb'] ?>" style="max-width:350px;" />
-					<?php endforeach; ?>
+<?php if($order->getStatus() == 'complete') : ?>
+	<?php
+	$mDesignId = $this->getRequest()->getParam('design_id',0);
+	$pdpConfig = Mage::getStoreConfig('integration');
+	if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 1) : ?>
+		<?php 
+		$pdpData = isset($buyRequest['pdp_option']) ? $buyRequest['pdp_option'] : array();
+		$designId = isset($pdpData['design_id']) ? $pdpData['design_id'] : 0;
+		$pdpProductId = isset($pdpData['pdp_product_id']) ? $pdpData['pdp_product_id'] : 0;
+		$pdpUrl = Mage::helper('integration')->getPdpLink();
+		?>
+		<?php if($designId > 0) : ?>
+			<div class="pdp-design-infor">
+				<?php $dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId); ?>
+				<?php $strImages = $dataDesign['side_thumb']; ?>
+				<?php if($strImages != '') : ?>
+					<?php $images = unserialize($strImages); ?>
+					<?php if(count($images)) : ?>
+						<?php foreach($images as $image) : ?>
+							<?php if($image['thumb'] == '') { continue; } ?>
+							<?php 
+							$sideId = isset($image['sideId']) ? $image['sideId'] : 0;
+							$sideData = Mage::helper('integration')->getPdpSideData($sideId);
+							$sideTitle = $sideData['side_name'] ? $sideData['side_name'] : '';
+							?>
+							<label><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label>
+							<img src="<?php echo $pdpUrl.$image['thumb'] ?>" style="max-width:350px;" />
+						<?php endforeach; ?>
+					<?php endif; ?>
 				<?php endif; ?>
+			</div>
+			<?php if($reDesignId == $designId) : ?>
+				<span><?php echo $this->__('Design has created , Please click to Zip Design again'); ?></span>
 			<?php endif; ?>
-		</div>
-		<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Download Design') ?></a></span>
-	<?php endif; ?>
-	<input type="hidden" id="pdp-desgin-id-<?php echo $designId; ?>" value="<?php echo (int)$mDesignId ?>" />
-	<script type="text/javascript">
-	jQuery(document).ready(function($){
-		var designId = '<?php echo $designId; ?>';
-		var intDesingId = $('#pdp-desgin-id-'+designId).val();
-		if(designId == intDesingId)
-		{
-			intDesingId = parseInt(intDesingId);
-			if(intDesingId > 0)
+			<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Download Design') ?></a></span>
+		<?php endif; ?>
+		<input type="hidden" id="pdp-desgin-id-<?php echo $designId; ?>" value="<?php echo (int)$mDesignId ?>" />
+		<script type="text/javascript">
+		jQuery(document).ready(function($){
+			var designId = '<?php echo $designId; ?>';
+			var intDesingId = $('#pdp-desgin-id-'+designId).val();
+			var currentUrl = '<?php echo Mage::helper('core/url')->getCurrentUrl(); ?>';
+			var checkPdpSessionUrl = '<?php echo $this->getUrl() ?>integration/customerdesign/setDpk';
+			var pdpProductId = '<?php echo $pdpProductId; ?>';
+			if(designId == intDesingId)
 			{
-				//downloadPdpDesign(intDesingId);
+				intDesingId = parseInt(intDesingId);
+				if(intDesingId > 0)
+				{
+					//downloadPdpDesign(intDesingId);
+				}
 			}
-		}
-		$('#pdp-design-infor-item-zip-'+designId).click(function(e){
-			downloadPdpDesign(designId);
+			$('#pdp-design-infor-item-zip-'+designId).click(function(e){
+				downloadPdpDesign(designId);
+			})
+			function downloadPdpDesign(kakaDesignId)
+			{
+				var zipUrl = '<?php echo $pdpUrl ?>rest/design-download?id='+kakaDesignId+'&zip=1' 
+				var resturnUri = currentUrl;
+				var reload = '<?php echo $pdpUrl; ?>?pid='+pdpProductId+'&export-design='+designId+'&force-update-svg=1';
+				reload += '&return-uri=' + encodeURIComponent(resturnUri);
+				$.ajax({
+					url: zipUrl,
+					type: 'GET',
+					success : function(res)
+					{
+						var jsonData = res;
+						if(typeof jsonData === 'object')
+						{
+							
+						}
+						else
+						{
+							jsonData = JSON.parse(res);
+						}
+						var dataRes = jsonData.data;
+						var fileZip = dataRes.file;
+						var baseUrl = dataRes.baseUrl;
+						window.location.href = baseUrl+ fileZip;
+					},
+					error : function(res)
+					{
+						var mResponseText = res.responseText;
+						if(typeof mResponseText == 'object')
+						{
+							
+						}
+						else
+						{
+							mResponseText = JSON.parse(mResponseText);
+						}
+						console.log(mResponseText);
+						if(mResponseText.errorCode && mResponseText.errorCode === 15)
+						{
+							checkPdpSession(checkPdpSessionUrl,designId,function(){
+								if(confirm('<?php echo $this->__('We need create it again from Design Editor, Editor . Press OK then just wait , all done automatically !.'); ?>'))
+								{
+									window.location.href = reload;
+								}
+							})
+						}else{
+						 // alertModal('Error', $t(msg));
+						}
+					}
+				})
+			}
+			function checkPdpSession(url,designId,callback)
+			{
+				$.ajax({
+						url: url,
+						type: 'post',
+						data : {design_id : designId},
+						success : function(res)
+						{
+							callback();
+						},
+						error : function()
+						{
+							alert('Error');
+						}
+				})
+			}
 		})
-		function downloadPdpDesign(kakaDesignId)
-		{
-			var zipUrl = '<?php echo $pdpUrl ?>rest/design-download?id='+kakaDesignId+'&zip=1' 
-			 $.get(zipUrl, function(data, status){
-				if(status == 'success')
-				{
-					var jsonData = data;
-					var dataRes = jsonData.data;
-					var fileZip = dataRes.file;
-					var baseUrl = dataRes.baseUrl;
-					window.location.href = baseUrl+ fileZip;
-				}
-				else
-				{
-					alert('Error ');
-				}
-			});
-		}
-	})
-	</script>
-<style rel="stylesheet">
-span.pdp-design-infor-item {
-    display: table-cell;
-    background: #a1d06a;
-    width: 1%;
-    text-align: center;
-    color: #fff;
-    text-decoration: none;
-}
-span.pdp-design-infor-item a {
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 10px;
-    line-height: 30px;
-    display: block;
-}
+		</script>
+		<div id="popup1" class="overlay">
+		<div class="popup">
+			<h2>Here i am</h2>
+			<a class="close" href="#">&times;</a>
+			<div class="content">
+				Thank to pop me out of that button, but now i'm done so you can close this window.
+			</div>
+		</div>
+	</div>
+	<style rel="stylesheet">
+	span.pdp-design-infor-item {
+		display: table-cell;
+		background: #a1d06a;
+		width: 1%;
+		text-align: center;
+		color: #fff;
+		text-decoration: none;
+	}
+	span.pdp-design-infor-item a {
+		color: #fff;
+		text-decoration: none;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		padding: 10px;
+		line-height: 30px;
+		display: block;
+	}
 	span.pdp-design-infor-item:last-child{background:#00baf7;}
-</style>
-<?php endif; ?>
+		/* popup */
+	.overlay {
+	  position: fixed;
+	  top: 0;
+	  bottom: 0;
+	  left: 0;
+	  right: 0;
+	  background: rgba(0, 0, 0, 0.7);
+	  transition: opacity 500ms;
+	  visibility: hidden;
+	  opacity: 0;
+	}
 
+	.popup {
+	  margin: 70px auto;
+	  padding: 20px;
+	  background: #fff;
+	  border-radius: 5px;
+	  width: 30%;
+	  position: relative;
+	  transition: all 5s ease-in-out;
+	}
 
+	.popup h2 {
+	  margin-top: 0;
+	  color: #333;
+	  font-family: Tahoma, Arial, sans-serif;
+	}
+	.popup .close {
+	  position: absolute;
+	  top: 20px;
+	  right: 30px;
+	  transition: all 200ms;
+	  font-size: 30px;
+	  font-weight: bold;
+	  text-decoration: none;
+	  color: #333;
+	}
+	.popup .close:hover {
+	  color: #06D85F;
+	}
+	.popup .content {
+	  max-height: 30%;
+	  overflow: auto;
+	}
+	</style>
+	<?php endif; ?>
+<?php endif // end if order  ?>
