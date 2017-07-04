@@ -93,7 +93,7 @@
 				<?php endif; ?>
 			</div>
 			<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Download Design') ?></a></span>
-			<span class="pdp-design-infor-item"><a href="<?php echo $pdpUrl.'?export-design='.$designId.'&pid='.$pdpProductId; ?>"><?php echo $this->__('Edit Design') ?></a></span>
+			<span class="pdp-design-infor-item" style="background:#00baf7;"><a href="<?php echo $pdpUrl.'?export-design='.$designId.'&pid='.$pdpProductId; ?>"><?php echo $this->__('Edit Design') ?></a></span>
 			<?php $currentUrl = Mage::helper('core/url')->getCurrentUrl(); ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
@@ -169,7 +169,6 @@ padding: 10px;
 line-height: 30px;		
 display: block;		
 }		
-span.pdp-design-infor-item:last-child{background:#00baf7;}
 		</style>
 	<?php endif; ?>
 
