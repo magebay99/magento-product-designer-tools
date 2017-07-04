@@ -85,14 +85,14 @@
 							?>
 							<label style="float: left;"><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label><br/>
 							<div class="pdc-review-image" style="float: left; width: 100%;">
-								<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
+								<img src="<?php echo $pdpUrl.$image['thumb'] ?>" style="max-width:450px;" />
 							</div>
 							
 						<?php endforeach; ?>
 					<?php endif; ?>
 				<?php endif; ?>
 			</div>
-			<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Zip Design') ?></a></span>
+			<span class="pdp-design-infor-item"><a id="pdp-design-infor-item-zip-<?php echo $designId; ?>" href="#"><?php echo $this->__('Download Design') ?></a></span>
 			<span class="pdp-design-infor-item"><a href="<?php echo $pdpUrl.'?export-design='.$designId.'&pid='.$pdpProductId; ?>"><?php echo $this->__('Edit Design') ?></a></span>
 			<?php $currentUrl = Mage::helper('core/url')->getCurrentUrl(); ?>
 		<script type="text/javascript">
@@ -152,14 +152,24 @@
 		</script>
 		<?php endif; ?>
 		<style type="text/css">
-			.pdp-design-infor {
-				float: left;
-				width : 100%;
-			}
-			.pdp-design-infor span {
-				float: left;
-				width : 100%;
-			}
+span.pdp-design-infor-item {
+display: table-cell;
+background: #a1d06a;
+width: 1%;
+text-align: center;
+color: #fff;
+text-decoration: none;
+}
+span.pdp-design-infor-item a {		
+color: #fff;		
+text-decoration: none;		
+text-transform: uppercase;		
+letter-spacing: 2px;		
+padding: 10px;		
+line-height: 30px;		
+display: block;		
+}		
+span.pdp-design-infor-item:last-child{background:#00baf7;}
 		</style>
 	<?php endif; ?>
 
