@@ -35,7 +35,7 @@ $pdpUrl = Mage::helper('integration')->getPdpLink();
 						$sideTitle = $sideData['side_name'] ? $sideData['side_name'] : '';
 					?>
 					<label><?php echo $this->__('Side') ?> <?php echo $sideTitle; ?></label>
-					<img src="<?php echo $pdpUrl.$image['thumb'] ?>" />
+					<img src="<?php echo $pdpUrl.$image['thumb'] ?>" style="max-width:250px;" />
 				<?php endforeach; ?>
 			<?php endif; ?>
 		<?php endif; ?>
