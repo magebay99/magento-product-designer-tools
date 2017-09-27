@@ -113,8 +113,13 @@ Class PDP_Integration_CartController extends Mage_Core_Controller_Front_Action
 			$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $pdpData['sku']);
 			$productId = ($_product && $_product->getId()) ? $_product->getId() : 0;
 			$designId = $pdpData['design_id'];
-			$prinType = $pdpData['pdp_print_type'];
-			$productColor = $pdpData['product_color'];
+			//$prinType = $pdpData['pdp_print_type'];
+			if(isset($pdpData['pdp_print_type'])) {
+				$prinType = $pdpData['pdp_print_type'];	
+			}
+			if(isset($pdpData['product_color'])) {
+				$productColor = $pdpData['product_color'];	
+			}			
 			$qty = $pdpData['qty'];
 			$pdpPrice = $pdpData['price'];
 			if($productId > 0)
@@ -126,14 +131,23 @@ Class PDP_Integration_CartController extends Mage_Core_Controller_Front_Action
 						'qty' => $qty ,
 						'pdp_option'=>array(
 							'design_id'=> $designId,
-							'print_type'=>$prinType,
-							'product_color'=>$productColor,
+							//'print_type'=>$prinType,
+							//'product_color'=>$productColor,
 							'price'=>$pdpPrice,
 							'pdp_product_id'=>$pdpData['entity_id'],
-							'pdp_custom_option'=>$pdpData['pdp_options'],
+							//'pdp_custom_option'=>$pdpData['pdp_options'],
 							
 						)
 					);
+					if(isset($productColor)) {
+						$params['pdp_option']['product_color'] = $productColor;
+					}
+					if(isset($prinType)) {
+						$params['pdp_option']['print_type'] = $prinType;
+					}
+					if(isset($pdpData['pdp_options'])) {
+						$params['pdp_option']['pdp_custom_option'] = $pdpData['pdp_options'];
+					}					
 					$cart = Mage::getSingleton('checkout/cart');
 					//if exit item, remove it
 					$itemId = isset($pdpData['item_id']) ? $pdpData['item_id'] : 0;
