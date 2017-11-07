@@ -1,6 +1,17 @@
 <?php
 class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
 {
+	const USE_DESIGN_POPUP = 'integration/setting/use_popup_design';
+	
+	/**
+	* 
+	* Retrieve true if using popup for design
+	* @return boolean
+	*/
+	public function isUseDesignPopup() {
+		return Mage::getStoreConfig(self::USE_DESIGN_POPUP);
+	}
+	
 	/**
 	* get PDP design order 
 	* @param int $disignId

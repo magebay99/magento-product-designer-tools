@@ -1,6 +1,7 @@
 <?php 
 $pdpConfig = Mage::getStoreConfig('integration');
 $pdpUrl = Mage::helper('integration')->getPdpLink();
+$use_popup_design = Mage::helper('integration')->isUseDesignPopup();
 if(isset($pdpConfig['setting']['enable']) && $pdpConfig['setting']['enable'] == 1)
 {
 	
@@ -15,9 +16,89 @@ $pdpProduct = Mage::helper('integration')->getPdpProduct($_product->getSku()); ?
 <?php if(count($pdpProduct)) : ?>
 <?php $pdpProductId = isset($pdpProduct['type_id']) ? $pdpProduct['type_id'] : 0; ?>
 <div class="pdp-design-btn">
-   <a href="<?php echo $pdpUrl.'?pid='.$pdpProductId; ?>"><?php echo $this->__('Customize It'); ?></a>
+	<?php if ($use_popup_design){ ?>
+		<a class="openpopup" href="javascript:void(0);"><?php echo $this->__('Customize It'); ?></a>
+	<?php } else { ?>
+		<a href="<?php echo $pdpUrl.'?pid='.$pdpProductId; ?>"><?php echo $this->__('Customize It'); ?></a>	
+	<?php } ?>
 </div>
+<?php if ($use_popup_design){ 
+$link_edit = $pdpUrl.'?pid='.$pdpProductId;
+$style_content = '
+#pdp_iframe {
+	background: rgba(0, 0, 0, 0) none repeat scroll 0 0; 
+	border: 0px solid transparent;
+	margin: auto; 
+	position: fixed; 
+	top: -100000px;
+	z-index: 100000;
+}
+.background-orverlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.9;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.please-wait {
+    display: block;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 47%;
+    z-index: 9999;
+}
+';
+?>
+<div class="background-orverlay" style="display: none">
+	<span class="please-wait">
+	    <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->__('Please wait...') ?>" title="<?php echo $this->__('Please wait...') ?>" class="v-middle" /> <?php echo $this->__('Please wait...') ?>
+	</span>
+</div>
+<div id="wrapper_iframe">
+
+</div>
+<script type="text/javascript">
+	jQuery.noConflict();
+	jQuery(document).ready(function($){
+				setTimeout(function() {
+			$('#wrapper_iframe').html("<iframe id=\"pdp_iframe\" data-checkoutcart-url=\" <?php echo Mage::helper('checkout/cart')->getCartUrl();?>\"></iframe>");
+			var isOpen = false;
+			$('a[class*="openpopup"]').on('click', function(evt){
+				if (isOpen) {
+					$('iframe[id=pdp_iframe]').show();
+				} else {
+					$('div[class*="background-orverlay"]').show();
+					$('iframe[id=pdp_iframe]').attr('src', '<?php echo $link_edit ?>&iframe=1');
+					isOpen = true;
+				}
+				
+			});
+			$('iframe[id=pdp_iframe]').load(function() {
+				$('div[class*="background-orverlay"]').hide();
+				$(this).css({
+					"width": "100%",
+					"height" : "100%",
+					"left" : "0",
+					"top" : "0",
+					"right" : "0"
+				});
+				$(this).contents().find('body').css({
+					'padding': '10px 3%'
+				}).children('.toppage').css({
+					'left': '3%',
+					'width': '94%'
+				});
+			});			
+		},400);
+	});
+</script>
+<?php } ?>
 <style type="text/css">
+<?php echo $style_content ?>
 .btn-cart
 {
 	display : none;
