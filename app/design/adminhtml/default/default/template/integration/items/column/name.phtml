@@ -72,7 +72,7 @@
 		<?php if($designId > 0) : ?>
 			<div class="pdp-design-infor">
 				<?php $dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId); ?>
-				<?php $strImages = $dataDesign['side_thumb']; ?>
+				<?php $strImages = $dataDesign['side_thumb_raw'] ? $dataDesign['side_thumb_raw']: $dataDesign['side_thumb']; ?>
 				<?php if($strImages != '') : ?>
 					<?php $images = unserialize($strImages); ?>
 					<?php if(count($images)) : ?>

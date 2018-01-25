@@ -36,7 +36,7 @@ Class PDP_Integration_CartController extends Mage_Core_Controller_Front_Action
 			if($productId > 0)
 			{
 				$dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId);
-				$strImages = $dataDesign['side_thumb'];
+				$strImages = $dataDesign['side_thumb_raw'] ? $dataDesign['side_thumb_raw']:$dataDesign['side_thumb'];
 				$strThumbanail = '';
 				if($strImages != '')
 				{

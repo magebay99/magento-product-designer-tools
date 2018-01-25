@@ -21,7 +21,7 @@ $pdpUrl = Mage::helper('integration')->getPdpLink();
 		<span class="pdp-design-infor-item"><?php echo $this->__('Color') ?> : <?php echo isset($pdpData['product_color']['color_name']) ? $pdpData['product_color']['color_name'] : ''; ?></span>
 		<span class="pdp-design-infor-item"><?php echo $this->__('Customize') ?></span> */ ?>
 		<?php $dataDesign = Mage::helper('integration')->getPdpDesignOrder($designId); ?>
-		<?php $strImages = $dataDesign['side_thumb']; ?>
+		<?php $strImages = $dataDesign['side_thumb_raw'] ? $dataDesign['side_thumb_raw']:$dataDesign['side_thumb']; ?>
 		<?php if($strImages != '') : ?>
 			<?php $images = unserialize($strImages);
 			

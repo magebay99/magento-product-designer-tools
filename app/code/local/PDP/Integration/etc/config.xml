@@ -15,15 +15,15 @@
                 </args>
             </integration>
         </routers>
-		 <layout>
+        <layout>
             <updates>
                 <integration>
                     <file>integration.xml</file>
                 </integration>
             </updates>
         </layout>
-		<events>
-			<customer_login>
+        <events>
+            <customer_login>
                 <observers>
                     <integration_customer_login>
                         <type>model</type>
@@ -32,7 +32,7 @@
                     </integration_customer_login>
                 </observers>
             </customer_login>
-			<customer_register_success>
+            <customer_register_success>
                 <observers>
                     <integration_customer_register_success>
                         <type>singleton</type>
@@ -41,7 +41,7 @@
                     </integration_customer_register_success>
                 </observers>
             </customer_register_success>
-		</events>
+        </events>
     </frontend>
     <admin>
         <routers>
@@ -54,30 +54,30 @@
             </integration>
         </routers>
     </admin>
-   <adminhtml>
+    <adminhtml>
         <acl>
-        <resources>
-            <all>
-                <title>Allow Everything</title>
-            </all>
-            <admin>
-                <children>
-                    <system>
-                        <children>
-                            <config>
-                                <children>
-                                    <integration>
-                                        <title>integration - All</title>
-                                    </integration>
-                                </children>
-                            </config>
-                        </children>
-                    </system>
-                </children>
-            </admin>
-        </resources>
-    </acl>
-	 <layout>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <integration>
+                                            <title>integration - All</title>
+                                        </integration>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
             <updates>
                 <integration>
                     <file>integration.xml</file>
@@ -99,16 +99,16 @@
         <models>
             <integration>
                 <class>PDP_Integration_Model</class>
-				<resourceModel>integration_mysql4</resourceModel>
+                <resourceModel>integration_mysql4</resourceModel>
             </integration>
-			<integration_mysql4>
-				 <class>PDP_Integration_Model_Mysql4</class>
-				 <entities>
-					<customerdesigns>
-						<table>pdp_integration_customer_design</table>
-					</customerdesigns>
-				 </entities>
-			</integration_mysql4>
+            <integration_mysql4>
+                <class>PDP_Integration_Model_Mysql4</class>
+                <entities>
+                    <customerdesigns>
+                        <table>pdp_integration_customer_design</table>
+                    </customerdesigns>
+                </entities>
+            </integration_mysql4>
         </models>
         <resources>
             <integration_setup>
@@ -130,42 +130,43 @@
                 </connection>
             </integration_read>
         </resources>
-		<events>
-		<catalog_product_load_after>
-			<observers>
-				<extra_options>
-					<type>model</type>
-					<class>PDP_Integration_Model_Observer</class>
-					<method>catalogProductLoadAfter</method>
-				</extra_options>
-			</observers>
-		</catalog_product_load_after>
-		<checkout_cart_product_add_after>
-				<observers>
-					<booking_standard_add_to_cart>
-					  <type>singleton</type>
-					  <class>PDP_Integration_Model_Observer</class>
-					  <method>changePrice</method>
-					</booking_standard_add_to_cart>
-				</observers>
-		</checkout_cart_product_add_after>
-		<sales_convert_quote_item_to_order_item>
-			<observers>
-				<extra_options>
-					<type>model</type>
-					<class>PDP_Integration_Model_Observer</class>
-					<method>salesConvertQuoteItemToOrderItem</method>
-				</extra_options>
-			</observers>
-		</sales_convert_quote_item_to_order_item>
-		</events>
+        <events>
+            <catalog_product_load_after>
+                <observers>
+                    <extra_options>
+                        <type>model</type>
+                        <class>PDP_Integration_Model_Observer</class>
+                        <method>catalogProductLoadAfter</method>
+                    </extra_options>
+                </observers>
+            </catalog_product_load_after>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <booking_standard_add_to_cart>
+                        <type>singleton</type>
+                        <class>PDP_Integration_Model_Observer</class>
+                        <method>changePrice</method>
+                    </booking_standard_add_to_cart>
+                </observers>
+            </checkout_cart_product_add_after>
+            <sales_convert_quote_item_to_order_item>
+                <observers>
+                    <extra_options>
+                        <type>model</type>
+                        <class>PDP_Integration_Model_Observer</class>
+                        <method>salesConvertQuoteItemToOrderItem</method>
+                    </extra_options>
+                </observers>
+            </sales_convert_quote_item_to_order_item>
+        </events>
     </global>  	
     <default>
-    	<integration>
-    		<setting>
-    			<enable>0</enable>
-    			<use_popup_design>0</use_popup_design>
-    		</setting>
-    	</integration>
+        <integration>
+            <setting>
+                <enable>0</enable>
+                <use_popup_design>0</use_popup_design>
+                <separate_database>0</separate_database>
+            </setting>
+        </integration>
     </default>	
 </config>

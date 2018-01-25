@@ -13,6 +13,7 @@
 class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
 {
 	const USE_DESIGN_POPUP = 'integration/setting/use_popup_design';
+	const SEPARATE_DATABASE = 'integration/setting/separate_database';
     /**
      * If true , then data will be fetched via CURL instead SQL querry (PDP & Magento not same db)
      * @var bool
@@ -60,7 +61,7 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
         {
             try{
                 $toCall = $name . 'ViaCurl';
-                if(!$this->_curlToPdpApi)
+                if(!$this->isSeparateDb())
                 {
                     $toCall = $name . 'Sql';
                 }
@@ -227,6 +228,15 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
 	public function isUseDesignPopup() {
 		return Mage::getStoreConfig(self::USE_DESIGN_POPUP);
 	}
+        
+        /**
+	* 
+	* Retrieve true if separate database
+	* @return boolean
+	*/
+	public function isSeparateDb() {
+		return Mage::getStoreConfig(self::SEPARATE_DATABASE);
+	}
 
 
     /**
@@ -349,7 +359,7 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPdpProductViaCurl($sku)
     {
-        $url = $this->getPdpLink();
+        $url = rtrim($this->getPdpLink(),'/');
         $url .= '/rest/commerce?product=1&sku=' . $sku;
         /* init curl */
         $this->getCurl()->setUrl($url);
@@ -372,8 +382,8 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPdpDesignOrderViaCurl($designId)
     {
-        $url = $this->getPdpLink();
-        $url .= 'rest/design-template?id=' . $designId;
+        $url = rtrim($this->getPdpLink(),'/');
+        $url .= '/rest/design-template?id=' . $designId;
         /* init curl */
         $this->getCurl()->setUrl($url);
         $result = $this->getCurl()->exec();
@@ -395,8 +405,8 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
      */
     function getPdpSideDataViaCurl($sideId)
     {
-        $url = $this->getPdpLink();
-        $url .= 'rest/design-side?id=' . $sideId;
+        $url = rtrim($this->getPdpLink(),'/');
+        $url .= '/rest/design-side?id=' . $sideId;
         /* init curl */
         $this->getCurl()->setUrl($url);
         $result = $this->getCurl()->exec();
@@ -421,8 +431,8 @@ class PDP_Integration_Helper_Data extends Mage_Core_Helper_Abstract
         $title = '';
         try
         {
-            $url = $this->getPdpLink();
-            $url .= 'rest/design-side?id='.$optionId;/* init curl */
+            $url = rtrim($this->getPdpLink(),'/');
+            $url .= '/rest/design-side?id='.$optionId;/* init curl */
             $this->getCurl()->setUrl($url);
             $result = $this->getCurl()->exec();
             if ($result && $this->checkCurlJson($result))
